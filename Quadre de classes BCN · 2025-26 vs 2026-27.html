@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quadre de classes BCN · 2025-26 vs 2026-27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --band:#FEF3C6; --ink:#2F3A4A; --soft:#5B6878; --line:#E4E8EE;
+  --past:#A9C4E2; --now:#2596BE; --now-deep:#3E6FA8; --amber:#FBB03B;
+  --miss:#D9363E; --miss-bg:#FDECEC; --over:#0E9F6E; --over-bg:#E7F7F0; --chip:#F2F5F9;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141B24; --band:#2A2618; --ink:#E8EDF3; --soft:#A3AFBD; --line:#2A3441;
+  --past:#4F6A88; --now:#3BB3DC; --now-deep:#8DB9EC; --amber:#FBB03B;
+  --miss:#FF6B6B; --miss-bg:#3A1F22; --over:#34D399; --over-bg:#15302A; --chip:#1F2833;}}
+:root[data-theme="dark"]{
+  --bg:#141B24; --band:#2A2618; --ink:#E8EDF3; --soft:#A3AFBD; --line:#2A3441;
+  --past:#4F6A88; --now:#3BB3DC; --now-deep:#8DB9EC; --amber:#FBB03B;
+  --miss:#FF6B6B; --miss-bg:#3A1F22; --over:#34D399; --over-bg:#15302A; --chip:#1F2833;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{background:var(--band);padding:44px 0 34px}
+h1{font-size:clamp(30px,5.2vw,52px);line-height:1.04;font-weight:900;letter-spacing:-.02em;margin:0 0 12px;max-width:16ch}
+.lede{font-size:18px;color:var(--soft);max-width:60ch;margin:0}
+.legend{display:flex;gap:18px;margin-top:22px;font-size:14px;color:var(--soft);flex-wrap:wrap}
+.key{display:inline-flex;align-items:center;gap:7px}.sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+section{padding:46px 0;border-bottom:1px solid var(--line)}
+h2{font-size:28px;font-weight:800;letter-spacing:-.01em;margin:0 0 6px}
+.sub{color:var(--soft);margin:0 0 24px;max-width:66ch}
+/* comparison table */
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:3px solid var(--ink)}
+.cmp div{padding:14px 14px 16px 0;border-bottom:1px solid var(--line)}
+.cmp .l{font-size:14px;color:var(--soft);display:block;margin-bottom:4px}
+.cmp .v{font-size:30px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.cmp .p{font-size:14px;color:var(--soft);font-variant-numeric:tabular-nums}
+.up{color:var(--now-deep)}.dn{color:var(--miss)}
+/* week chart */
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:end;height:250px;margin-top:8px}
+.day{display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
+.bars{display:flex;gap:6px;align-items:flex-end;height:200px;width:100%;justify-content:center}
+.bar{width:38%;max-width:46px;border-radius:7px 7px 2px 2px;position:relative;transition:height .6s cubic-bezier(.2,.8,.2,1)}
+.bar span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.dl{margin-top:8px;font-weight:700;font-size:15px}
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tcol h3{font-size:16px;margin:0 0 10px;display:flex;align-items:baseline;gap:8px}
+.tcol h3 b{font-size:34px;font-weight:900;line-height:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--chip);border-radius:999px;padding:3px 10px;font-size:14px}
+.chip.gone{text-decoration:line-through;color:var(--soft)}
+.chip.new{background:color-mix(in srgb,var(--now) 18%,transparent)}
+.note{font-size:14px;color:var(--soft);margin-top:14px}
+/* monitors */
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:transparent;color:var(--ink);font:inherit;font-weight:700;font-size:14px;padding:7px 16px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.summary{font-size:15px;color:var(--soft)}
+.mlist{display:flex;flex-direction:column;gap:2px}
+.mrow{display:grid;grid-template-columns:120px 1fr 64px;gap:12px;align-items:center;padding:5px 6px;border-radius:8px;cursor:pointer;border:0;background:transparent;color:inherit;font:inherit;text-align:left;width:100%}
+.mrow:hover{background:var(--chip)}
+.mname{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mtrack{height:16px;background:var(--chip);border-radius:5px;position:relative;overflow:hidden}
+.mfill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.msup{position:absolute;top:0;bottom:0;opacity:.35;border-radius:0 5px 5px 0}
+.mval{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;font-size:15px}
+.mdet{grid-column:1/-1;display:none;padding:6px 0 10px 132px;font-size:14px;color:var(--soft)}
+.mrow[aria-expanded="true"]+.mdet{display:block}
+.wk{display:flex;gap:4px;margin:6px 0}
+.wk i{font-style:normal;flex:1;max-width:70px;text-align:center;border-radius:5px;padding:3px 0;font-size:12px;font-weight:700;background:var(--chip);color:var(--soft)}
+.wk i.on{background:var(--now);color:#fff}
+.tag{font-size:12px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.tag.low{background:color-mix(in srgb,var(--amber) 30%,transparent);color:var(--ink)}
+.tag.sub{background:var(--chip);color:var(--soft)}
+/* gaps */
+.big{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:22px}
+.big div{min-width:150px}.big b{display:block;font-size:44px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.big span{font-size:14px;color:var(--soft)}
+.miss b{color:var(--miss)}.over b{color:var(--over)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.card{border-radius:12px;padding:14px 16px;border:1.5px solid var(--line)}
+.card.m{background:var(--miss-bg);border-color:transparent}
+.card.o{background:var(--over-bg);border-color:transparent}
+.card h4{margin:0;font-size:16px;font-weight:800}
+.card .g{font-size:14px;color:var(--soft);margin:2px 0 8px}
+.dots{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
+.dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--ink)}
+.dot.f{background:var(--ink)}.dot.e{border-style:dashed;border-color:var(--miss)}.dot.x{background:var(--over);border-color:var(--over)}
+.card p{margin:4px 0 0;font-size:14px}
+h3.sec{font-size:18px;margin:30px 0 12px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-weight:700;border-bottom:2px solid var(--ink);padding:6px 8px 6px 0}
+.tbl td{border-bottom:1px solid var(--line);padding:7px 8px 7px 0;vertical-align:top}
+.tbl td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.scroll{overflow-x:auto}
+footer{padding:28px 0 46px;font-size:13px;color:var(--soft)}
+@media (max-width:700px){
+  .team{grid-template-columns:1fr}
+  .mrow{grid-template-columns:92px 1fr 54px}.mdet{padding-left:6px}
+  .week{gap:6px}.bar span{font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Quadre de classes BCN, curs passat vs. curs actual</h1>
+  <p class="lede">Setmana de referència: primera d’octubre.</p>
+  <div class="legend"><span class="key"><i class="sw" style="background:var(--past)"></i>2025-26</span><span class="key"><i class="sw" style="background:var(--now)"></i>2026-27</span></div>
+</div></header>
+
+<main class="wrap">
+<section aria-labelledby="s1">
+  <h2 id="s1">Menys hores de classe, més monitors</h2>
+  <p class="sub">Hi ha unes 7 hores de classe setmanals menys que l’any passat, però repartides entre 5 monitors titulars més. Per això cada monitor fa, de mitjana, gairebé una hora menys.</p>
+  <div class="cmp" id="cmp"></div>
+  <h3 class="sec">Hores de classe per dia</h3>
+  <div class="legend" style="margin:0 0 14px"><span class="key"><i class="sw" style="background:var(--past)"></i>Curs 2025-26</span><span class="key"><i class="sw" style="background:var(--now)"></i>Curs 2026-27</span><span class="key" style="color:var(--soft)">Hores de classe setmanals de cada dia</span></div>
+  <div class="week" id="week" role="img" aria-label="Hores de classe per dia, comparació entre cursos"></div>
+</section>
+
+<section aria-labelledby="s2">
+  <h2 id="s2">Qui hi ha a l’equip</h2>
+  <p class="sub">Totes les persones que surten al quadre, incloses les que només fan suport. Més de la meitat de l’equip d’aquest curs és nou.</p>
+  <div class="team" id="team"></div>
+  <p class="note">El Guille i el Juan aquest curs només fan suport i substitucions. El Gerard surt només entre parèntesis, de suport.</p>
+</section>
+
+<section aria-labelledby="s3">
+  <h2 id="s3">Hores de classe de cada monitor</h2>
+  <p class="sub">Hores setmanals com a titular. La part clara de la barra és el temps de suport. Toca un nom per veure quins dies treballa i a quines escoles va.</p>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Curs"><button data-y="1" aria-pressed="true">2026-27</button><button data-y="0" aria-pressed="false">2025-26</button></div>
+    <div class="seg" role="group" aria-label="Ordre"><button data-s="h" aria-pressed="true">Per hores</button><button data-s="n" aria-pressed="false">Per nom</button></div>
+    <span class="summary" id="msum"></span>
+  </div>
+  <div class="mlist" id="mlist"></div>
+</section>
+
+<section aria-labelledby="s4">
+  <h2 id="s4">On falten monitors</h2>
+  <p class="sub">Ratio: 1 monitor cada 10 alumnes a MiniTecno i 1 cada 12 a la resta.</p>
+  <div class="big" id="bigmiss"></div>
+  <p class="note" style="margin:0 0 14px;display:flex;gap:16px;flex-wrap:wrap"><span class="key"><i class="dot f"></i>monitor necessari, assignat</span><span class="key"><i class="dot e"></i>monitor que falta</span><span class="key"><i class="dot x"></i>monitor per sobre de la ratio</span></p><div class="cards" id="miss"></div>
+  <h3 class="sec">Grups amb alumnes que no tenen sessió al quadre</h3>
+  <div class="scroll"><table class="tbl" id="noq"></table></div>
+</section>
+
+<section aria-labelledby="s5">
+  <h2 id="s5">On sobren monitors</h2>
+  <p class="sub">Sessions amb més monitors titulars dels que demana la ratio. És el marge que hi ha per reorganitzar l’equip abans de contractar ningú.</p>
+  <div class="big" id="bigover"></div>
+  <p class="note" style="margin:0 0 14px;display:flex;gap:16px;flex-wrap:wrap"><span class="key"><i class="dot f"></i>monitor necessari, assignat</span><span class="key"><i class="dot e"></i>monitor que falta</span><span class="key"><i class="dot x"></i>monitor per sobre de la ratio</span></p><div class="cards" id="over"></div>
+  <h3 class="sec">Sessions del quadre que no tenen alumnes al fitxer</h3>
+  <p class="sub" id="nocsvtxt"></p>
+  <div class="chips" id="nocsv"></div>
+</section>
+</main>
+<footer><div class="wrap">Fonts: quadres de classes 2025-26 i 2026-27 (setmana OCT-1W) i balanç d’altes i baixes de l’1 de setembre al 6 d’octubre de 2026. Els totals estan en hores decimals (176,6 h = 176 h 36 min) i les hores de cada monitor en h:mm.</div></footer>
+
+<script>
+const D={"kpi": {"sch0": 53, "sch1": 50, "grp0": 145, "grp1": 137, "ses0": 148, "ses1": 142, "h0": 183.5, "h1": 176.63, "t0": 30, "t1": 34, "mh0": 239.75, "mh1": 239.72, "students": 1230}, "days": [{"d": "Dilluns", "h0": 46.0, "h1": 38.33}, {"d": "Dimarts", "h0": 37.25, "h1": 41.48}, {"d": "Dimecres", "h0": 42.67, "h1": 37.17}, {"d": "Dijous", "h0": 39.08, "h1": 42.15}, {"d": "Divendres", "h0": 18.5, "h1": 17.5}], "team": {"cont": ["Adriana", "Albert", "Alejandro", "Alicia", "Daniela", "Elena", "Ester", "Gerard", "Guille", "Jacobo", "Juan", "Laia", "Marc", "Marta", "Mireia", "Olivia", "Xènia"], "gone": ["Abril", "Aina", "Aleida", "Andrea", "Arnau", "David", "Eloy", "Laia Car", "Laia Cast", "Lucas", "Manel", "Maria", "Maria T", "Sergi"], "new": ["Ana", "Anna", "Assumpta", "Camila", "Clara", "Cristina", "Elena T", "Gilda", "Isabel", "Joel", "Julia", "Laura Pardo", "Laura Pujol", "Mariona", "Martí M", "Martí R", "Mireia M", "Naia", "Queralt", "Ruth"], "sup": ["Guille", "Juan", "Gerard"]}, "mon0": [{"name": "Marta", "h": 16.33, "sh": 0.0, "n": 13, "schools": ["JESUÏTES SANT IGNASI", "MONTSERRAT"], "days": {"Dilluns": 3.83, "Dimecres": 2.83, "Dijous": 3.83, "Dimarts": 3.83, "Divendres": 2.0}}, {"name": "Marc", "h": 16.25, "sh": 0.0, "n": 14, "schools": ["AMERICAN", "BSB SITGES", "EISB", "ESCOLA PIA CALDES", "IE CALDES", "MARISTES VALLDEMIA", "MERITXELL", "MONTSERRAT"], "days": {"Dilluns": 3.5, "Dimecres": 3.5, "Dijous": 3.5, "Dimarts": 3.75, "Divendres": 2.0}}, {"name": "Xènia", "h": 15.25, "sh": 0.0, "n": 13, "schools": ["AULA", "BSB BCN", "ESCOLA PIA SARRIÀ", "MONTSERRAT", "THAU"], "days": {"Dilluns": 3.25, "Dimecres": 4.5, "Dijous": 3.25, "Dimarts": 2.25, "Divendres": 2.0}}, {"name": "Mireia", "h": 13.75, "sh": 0.0, "n": 14, "schools": ["AULA", "ESCOLA PIA SARRIÀ", "FEDAC HORTA", "JESUITES GRÀCIA", "SALESIANES SARRIÀ", "SIL", "ST. GEORGE", "VIROLAI"], "days": {"Dilluns": 2.0, "Dimecres": 4.5, "Dijous": 3.25, "Dimarts": 2.0, "Divendres": 2.0}}, {"name": "Alejandro", "h": 13.25, "sh": 0.0, "n": 11, "schools": ["BCG", "BON SALVADOR", "L'OLIVERA", "MONTSENY", "PINS VALLÈS", "PUREZA DE MARIA", "REINA ELISENDA", "SOLC", "THAU"], "days": {"Dilluns": 3.5, "Dimecres": 2.25, "Dijous": 2.0, "Dimarts": 2.5, "Divendres": 3.0}}, {"name": "Juan", "h": 12.25, "sh": 0.0, "n": 12, "schools": ["BENJAMIN FRANKLIN", "BSB CAST", "CORAZONISTAS", "EISB", "SALESIANES SARRIÀ", "SOLC"], "days": {"Dilluns": 3.0, "Dimecres": 2.25, "Dijous": 3.0, "Dimarts": 2.0, "Divendres": 2.0}}, {"name": "Arnau", "h": 11.5, "sh": 0.0, "n": 9, "schools": ["BON SALVADOR", "ESCOLA PIA SARRIÀ", "FEDAC HORTA", "LA MIRANDA", "MONTSERRAT", "NATZARET ESPLUGUES", "SOLC", "VORAMAR"], "days": {"Dilluns": 2.5, "Dimecres": 2.5, "Dijous": 2.5, "Dimarts": 2.5, "Divendres": 1.5}}, {"name": "David", "h": 11.0, "sh": 0.0, "n": 9, "schools": ["MAR BELLA", "MONTSENY", "VIROLAI", "VORAMAR"], "days": {"Dilluns": 3.5, "Dimecres": 4.0, "Dimarts": 1.5, "Dijous": 2.0}}, {"name": "Laia Cast", "h": 10.25, "sh": 0.0, "n": 8, "schools": ["AMERICAN", "BCG", "BON SALVADOR", "BSB CAST", "EP VILANOVA", "SOLC"], "days": {"Dilluns": 2.75, "Dimecres": 2.5, "Dijous": 1.5, "Dimarts": 2.0, "Divendres": 1.5}}, {"name": "Gerard", "h": 9.83, "sh": 0.0, "n": 8, "schools": ["EISB", "FEDAC CERDANYOLA", "GERBERT D'ORLHAC", "JESUÏTES SANT IGNASI", "THAU"], "days": {"Dilluns": 1.5, "Dimecres": 1.83, "Dijous": 1.25, "Dimarts": 3.25, "Divendres": 2.0}}, {"name": "Aleida", "h": 8.5, "sh": 0.0, "n": 7, "schools": ["BSB CAST", "BSB SITGES", "EP VILANOVA"], "days": {"Dilluns": 2.5, "Dimecres": 2.5, "Dijous": 1.5, "Dimarts": 1.0, "Divendres": 1.0}}, {"name": "Sergi", "h": 8.5, "sh": 0.0, "n": 7, "schools": ["AMERICAN", "MARISTES IMMACULADA", "SEGRE", "VIROLAI"], "days": {"Dilluns": 1.75, "Dimecres": 1.0, "Dijous": 1.75, "Dimarts": 2.0, "Divendres": 2.0}}, {"name": "Adriana", "h": 8.0, "sh": 0.0, "n": 6, "schools": ["GRÈVOL", "LLEO XIII", "SALESIANES SARRIÀ", "SANTA TERESA LISIEUX"], "days": {"Dilluns": 1.5, "Dimecres": 1.5, "Dijous": 2.5, "Dimarts": 1.5, "Divendres": 1.0}}, {"name": "Maria", "h": 7.75, "sh": 0.0, "n": 7, "schools": ["BENJAMIN FRANKLIN", "MARISTES BADALONA", "MONTSERRAT", "SANTA TERESA LISIEUX", "ST. GEORGE"], "days": {"Dilluns": 3.5, "Dimarts": 1.0, "Dijous": 3.25}}, {"name": "Alicia", "h": 7.5, "sh": 0.0, "n": 6, "schools": ["COLLSEROLA", "GRÈVOL", "MARISTES IMMACULADA", "ST. GEORGE"], "days": {"Dilluns": 1.5, "Dimecres": 1.5, "Dijous": 1.5, "Dimarts": 1.0, "Divendres": 2.0}}, {"name": "Olivia", "h": 6.5, "sh": 0.0, "n": 5, "schools": ["BCG", "ESCOLA PIA CALDES", "GRÈVOL"], "days": {"Dimarts": 1.5, "Dimecres": 4.0, "Dijous": 1.0}}, {"name": "Jacobo", "h": 6.42, "sh": 0.0, "n": 4, "schools": ["BENJAMIN FRANKLIN", "BSB BCN", "JESUÏTES SANT IGNASI"], "days": {"Dimarts": 1.5, "Dimecres": 1.83, "Dilluns": 1.83, "Dijous": 1.25}}, {"name": "Lucas", "h": 6.25, "sh": 0.0, "n": 4, "schools": ["AMERICAN", "CATALUNYA", "ICÀRIA"], "days": {"Dilluns": 1.75, "Dimecres": 1.5, "Dimarts": 1.5, "Dijous": 1.5}}, {"name": "Andrea", "h": 6.0, "sh": 0.0, "n": 4, "schools": ["JESUÏTES SANT IGNASI"], "days": {"Dilluns": 1.17, "Dimecres": 1.83, "Dimarts": 1.17, "Dijous": 1.83}}, {"name": "Eloy", "h": 6.0, "sh": 0.0, "n": 4, "schools": ["BSB BCN", "BSB CAST", "ESCOLA PIA BALMES"], "days": {"Dilluns": 1.5, "Dimecres": 1.5, "Dimarts": 1.5, "Dijous": 1.5}}, {"name": "Maria T", "h": 5.5, "sh": 0.0, "n": 5, "schools": ["CIUTAT D'ALBA", "CORAZONISTAS", "DECROLY", "PUREZA DE MARIA"], "days": {"Dimarts": 1.0, "Dimecres": 2.5, "Divendres": 2.0}}, {"name": "Albert", "h": 5.0, "sh": 0.0, "n": 4, "schools": ["COR MARIA", "MERITXELL"], "days": {"Dilluns": 1.5, "Dimecres": 3.5}}, {"name": "Aina", "h": 4.17, "sh": 0.0, "n": 3, "schools": ["JESUÏTES SANT IGNASI", "SANTA TERESA LISIEUX", "VORAMAR"], "days": {"Dimarts": 1.17, "Dijous": 1.5, "Dilluns": 1.5}}, {"name": "Daniela", "h": 4.0, "sh": 0.0, "n": 3, "schools": ["GRÈVOL", "MINGUELLA"], "days": {"Dimarts": 1.5, "Dimecres": 1.0, "Dijous": 1.5}}, {"name": "Manel", "h": 4.0, "sh": 0.0, "n": 3, "schools": ["IPSE", "NATZARET ESPLUGUES", "SANTA TERESA LISIEUX"], "days": {"Dilluns": 1.5, "Dimarts": 1.5, "Dijous": 1.0}}, {"name": "Ester", "h": 3.83, "sh": 0.0, "n": 3, "schools": ["BSB BCN", "JESUÏTES SANT IGNASI"], "days": {"Dilluns": 1.17, "Dimarts": 1.17, "Dijous": 1.5}}, {"name": "Laia", "h": 3.75, "sh": 1.0, "n": 3, "schools": ["AMERICAN", "EP VILANOVA", "IPSE", "MONTESSORI SCHOOL"], "days": {"Dilluns": 1.75, "Dimarts": 1.0, "Dijous": 1.0}}, {"name": "Abril", "h": 3.67, "sh": 0.0, "n": 3, "schools": ["JESUÏTES SANT IGNASI", "SEGRE", "VORAMAR"], "days": {"Dimarts": 1.0, "Dijous": 1.5, "Dilluns": 1.17}}, {"name": "Elena", "h": 3.25, "sh": 0.0, "n": 2, "schools": ["AMERICAN", "JESUITES GRÀCIA"], "days": {"Dimarts": 1.75, "Dijous": 1.5}}, {"name": "Laia Car", "h": 1.5, "sh": 0.0, "n": 1, "schools": ["ESCOLA PIA BALMES"], "days": {"Dimecres": 1.5}}, {"name": "Guille", "h": 0, "sh": 2.5, "n": 0, "schools": ["ICÀRIA", "VIROLAI"], "days": {}}], "mon1": [{"name": "Marta", "h": 15.67, "sh": 0.0, "n": 13, "schools": ["JESUÏTES SANT IGNASI", "MONTSERRAT"], "days": {"Dilluns": 3.83, "Dimecres": 3.83, "Dijous": 4.17, "Dimarts": 2.83, "Divendres": 1.0}}, {"name": "Elena T", "h": 15.5, "sh": 0.0, "n": 13, "schools": ["AULA", "CORAZONISTAS", "EISB", "MONTSERRAT", "NATZARET ESPLUGUES", "ST. GEORGE"], "days": {"Dilluns": 2.5, "Dimecres": 4.5, "Dijous": 3.5, "Dimarts": 3.0, "Divendres": 2.0}}, {"name": "Xènia", "h": 15.25, "sh": 0.0, "n": 13, "schools": ["AULA", "DECROLY", "ESCOLA PIA SARRIÀ", "MONTSERRAT", "THAU"], "days": {"Dilluns": 3.25, "Dimecres": 4.5, "Dijous": 3.25, "Dimarts": 3.25, "Divendres": 1.0}}, {"name": "Marc", "h": 14.47, "sh": 0.0, "n": 13, "schools": ["BSB MARESME", "EISB", "ESCOLA PIA CALDES", "IE CALDES", "MARISTES VALLDEMIA", "MERITXELL", "MONTSERRAT"], "days": {"Dilluns": 3.5, "Dimecres": 3.5, "Dijous": 3.23, "Dimarts": 3.23, "Divendres": 1.0}}, {"name": "Adriana", "h": 14.25, "sh": 0.0, "n": 12, "schools": ["FEDAC HORTA", "GRÈVOL", "MAR BELLA", "MARISTES IMMACULADA", "SANTA TERESA LISIEUX"], "days": {"Dilluns": 3.75, "Dimecres": 3.75, "Dijous": 2.5, "Dimarts": 2.25, "Divendres": 2.0}}, {"name": "Alejandro", "h": 13.75, "sh": 0.0, "n": 11, "schools": ["BON SALVADOR", "L'OLIVERA", "MONTSENY", "OAK HOUSE", "PINS VALLÈS", "PUREZA DE MARIA", "SOLC", "THAU"], "days": {"Dilluns": 3.5, "Dimecres": 2.25, "Dijous": 2.5, "Dimarts": 2.5, "Divendres": 3.0}}, {"name": "Gilda", "h": 12.58, "sh": 0.0, "n": 11, "schools": ["BENJAMIN FRANKLIN", "CIUTAT D'ALBA", "ESCOLA PIA SARRIÀ", "JESUÏTES SANT IGNASI", "LLEO XIII", "MAR BELLA", "MARISTES IMMACULADA", "SALESIANES SARRIÀ"], "days": {"Dilluns": 3.67, "Dimecres": 2.5, "Dijous": 2.25, "Dimarts": 2.17, "Divendres": 2.0}}, {"name": "Cristina", "h": 10.75, "sh": 0.0, "n": 9, "schools": ["AMERICAN", "BSB SITGES", "EP VILANOVA", "FEDAC CERDANYOLA", "PINS VALLÈS", "SOLC"], "days": {"Dilluns": 2.75, "Dimecres": 1.0, "Dijous": 1.5, "Dimarts": 3.5, "Divendres": 2.0}}, {"name": "Mireia", "h": 9.5, "sh": 0.0, "n": 9, "schools": ["AULA", "JESUITES GRÀCIA", "MARISTES BADALONA", "SALESIANES SARRIÀ", "ST. GEORGE"], "days": {"Dilluns": 2.0, "Dimecres": 3.0, "Dijous": 1.5, "Dimarts": 1.0, "Divendres": 2.0}}, {"name": "Martí M", "h": 8.0, "sh": 0.0, "n": 8, "schools": ["DECROLY", "ESCOLA PIA SARRIÀ", "MONTSENY", "SALESIANES SARRIÀ"], "days": {"Dimarts": 2.0, "Divendres": 2.0, "Dilluns": 2.0, "Dijous": 2.0}}, {"name": "Alicia", "h": 7.5, "sh": 0.0, "n": 6, "schools": ["COLLSEROLA", "GRÈVOL", "MARISTES IMMACULADA", "ST. GEORGE"], "days": {"Dilluns": 1.5, "Dimecres": 1.5, "Dijous": 1.5, "Dimarts": 1.0, "Divendres": 2.0}}, {"name": "Anna", "h": 7.0, "sh": 0.0, "n": 5, "schools": ["AMERICAN", "BON SALVADOR", "IPSE", "LA MIRANDA", "THAU"], "days": {"Dilluns": 1.5, "Dimecres": 1.25, "Dijous": 1.0, "Dimarts": 1.75, "Divendres": 1.5}}, {"name": "Jacobo", "h": 7.0, "sh": 0.0, "n": 4, "schools": ["BSB BCN", "JESUÏTES SANT IGNASI"], "days": {"Dimarts": 1.5, "Dimecres": 1.83, "Dilluns": 1.83, "Dijous": 1.83}}, {"name": "Ruth", "h": 6.5, "sh": 0.0, "n": 5, "schools": ["BON SALVADOR", "BSB BCN", "OAK HOUSE", "SOLC"], "days": {"Dimarts": 2.5, "Dilluns": 1.0, "Divendres": 1.5, "Dijous": 1.5}}, {"name": "Ester", "h": 6.25, "sh": 0.0, "n": 4, "schools": ["AMERICAN", "BSB BCN", "CIUTAT D'ALBA"], "days": {"Dilluns": 1.75, "Dimecres": 1.5, "Dimarts": 1.5, "Dijous": 1.5}}, {"name": "Camila", "h": 5.75, "sh": 0.0, "n": 4, "schools": ["AMERICAN", "BENJAMIN FRANKLIN", "CIUTAT D'ALBA"], "days": {"Dilluns": 1.75, "Dimecres": 1.25, "Dimarts": 1.5, "Dijous": 1.25}}, {"name": "Naia", "h": 5.75, "sh": 0.0, "n": 5, "schools": ["CORAZONISTAS", "GERBERT D'ORLHAC", "PUREZA DE MARIA", "SANTA TERESA LISIEUX", "SOLC"], "days": {"Dimarts": 1.5, "Dimecres": 1.0, "Divendres": 1.0, "Dilluns": 2.25}}, {"name": "Isabel", "h": 5.5, "sh": 0.0, "n": 4, "schools": ["BSB CAST"], "days": {"Dilluns": 1.5, "Dimecres": 1.5, "Dimarts": 1.0, "Dijous": 1.5}}, {"name": "Olivia", "h": 5.5, "sh": 0.0, "n": 4, "schools": ["ESCOLA PIA CALDES", "VORAMAR"], "days": {"Dimarts": 1.5, "Dimecres": 4.0}}, {"name": "Laura Pardo", "h": 5.25, "sh": 0.0, "n": 4, "schools": ["ESCOLA PIA BALMES", "SANTA TERESA LISIEUX", "SEGRE", "VORAMAR"], "days": {"Dilluns": 1.25, "Dimecres": 1.5, "Dimarts": 1.0, "Dijous": 1.5}}, {"name": "Ana", "h": 5.0, "sh": 0.0, "n": 4, "schools": ["BSB CAST"], "days": {"Dilluns": 1.5, "Dimecres": 1.5, "Dimarts": 1.0, "Dijous": 1.0}}, {"name": "Julia", "h": 5.0, "sh": 0.0, "n": 4, "schools": ["BCG", "BSB CAST"], "days": {"Dimarts": 1.0, "Dimecres": 1.5, "Dilluns": 1.5, "Dijous": 1.0}}, {"name": "Laia", "h": 5.0, "sh": 0.0, "n": 4, "schools": ["AMERICAN", "ESCOLA PIA SARRIÀ", "IPSE", "MONTESSORI SCHOOL"], "days": {"Dilluns": 1.75, "Dimecres": 1.25, "Dimarts": 1.0, "Dijous": 1.0}}, {"name": "Mireia M", "h": 5.0, "sh": 0.0, "n": 4, "schools": ["BCG", "BSB CAST"], "days": {"Dimarts": 1.0, "Dimecres": 1.5, "Dilluns": 1.5, "Dijous": 1.0}}, {"name": "Clara", "h": 4.5, "sh": 0.0, "n": 4, "schools": ["JESUITES GRÀCIA", "MONTSERRAT", "SEGRE"], "days": {"Dimarts": 1.0, "Dimecres": 2.0, "Dijous": 1.5}}, {"name": "Albert", "h": 3.5, "sh": 0.0, "n": 3, "schools": ["MERITXELL"], "days": {"Dimecres": 3.5}}, {"name": "Elena", "h": 3.5, "sh": 0.0, "n": 2, "schools": ["AMERICAN"], "days": {"Dimarts": 1.75, "Dijous": 1.75}}, {"name": "Laura Pujol", "h": 3.5, "sh": 0.0, "n": 3, "schools": ["BENJAMIN FRANKLIN", "CORAZONISTAS", "OAK HOUSE"], "days": {"Dilluns": 1.0, "Divendres": 1.0, "Dijous": 1.5}}, {"name": "Mariona", "h": 3.5, "sh": 1.0, "n": 3, "schools": ["BCG", "BSB CAST", "EP VILANOVA"], "days": {"Divendres": 2.0, "Dijous": 1.5}}, {"name": "Martí R", "h": 3.0, "sh": 0.0, "n": 2, "schools": ["CATALUNYA", "L'OLIVERA"], "days": {"Dimarts": 1.5, "Dilluns": 1.5}}, {"name": "Assumpta", "h": 2.0, "sh": 0.0, "n": 2, "schools": ["BSB CAST"], "days": {"Dimarts": 1.0, "Dijous": 1.0}}, {"name": "Daniela", "h": 1.5, "sh": 0.0, "n": 1, "schools": ["GRÈVOL"], "days": {"Dijous": 1.5}}, {"name": "Joel", "h": 1.5, "sh": 0.0, "n": 1, "schools": ["MERITXELL"], "days": {"Dimecres": 1.5}}, {"name": "Queralt", "h": 1.5, "sh": 0.0, "n": 1, "schools": ["GRÈVOL"], "days": {"Dimarts": 1.5}}, {"name": "Gerard", "h": 0, "sh": 3.0, "n": 0, "schools": ["BON SALVADOR", "CIUTAT D'ALBA"], "days": {}}, {"name": "Guille", "h": 0, "sh": 6.5, "n": 0, "schools": ["CORAZONISTAS", "FEDAC CERDANYOLA", "LA MIRANDA", "SALESIANES SARRIÀ"], "days": {}}, {"name": "Juan", "h": 0, "sh": 3.0, "n": 0, "schools": ["BENJAMIN FRANKLIN", "FEDAC HORTA", "SOLC"], "days": {}}], "schools_lost": ["COR MARIA", "ICÀRIA", "MINGUELLA", "REINA ELISENDA", "VIROLAI"], "schools_new": ["BSB MARESME", "OAK HOUSE"], "need": [{"school": "FEDAC HORTA", "group": "MiniTecno", "ages": "EI4-EI5", "day": "Dimarts", "time": "13:45-14:45", "n": 7, "need": 1, "have": 0, "tit": [], "sup": ["Juan"], "diff": -1, "note": "La Mireia surt del grup i cal cobrir la seva plaça."}, {"school": "GERBERT D'ORLHAC", "group": "SuperCoders", "ages": "1-6 PRIM", "day": "Dimarts", "time": "16:30-18:00", "n": 13, "need": 2, "have": 1, "tit": ["Naia"], "sup": [], "diff": -1}, {"school": "SOLC", "group": "MiniTecno", "ages": "INF", "day": "Dilluns", "time": "13:30-14:30", "n": 13, "need": 2, "have": 1, "tit": ["Cristina"], "sup": ["Juan"], "diff": -1}, {"school": "ESCOLA PIA SARRIÀ", "group": "SuperTecno", "ages": "3-4 PRIM", "day": "Dijous", "time": "13:45-14:45", "n": 10, "need": 1, "have": 0, "tit": [], "sup": [], "diff": -1, "note": "La Mireia surt del grup i cal cobrir la seva plaça."}, {"school": "BON SALVADOR", "group": "TecnoKids", "ages": "1-3 PRIM", "day": "Divendres", "time": "13:30-15:00", "n": 12, "need": 1, "have": 0, "tit": [], "sup": ["Gerard"], "diff": -1, "note": "Ha quedat sense monitor titular."}], "need_extra": [{"school": "LLEO XIII", "group": "Tecno Kids", "ages": "1r-2n PRIM", "day": "Dijous", "time": "14:00-15:00", "tit": [], "note": "Sense monitor al quadre"}, {"school": "EP VILANOVA", "group": "SuperCoders Minecraft", "ages": "3-6 PRIM", "day": "Dimecres", "time": "13:45-14:45", "tit": ["Cristina"], "note": "Ara només hi ha un monitor i en falten 2", "miss": 2}, {"school": "SIL", "group": "MiniTecno", "ages": "EI4-EI5", "day": "Dimarts", "time": "14:00-15:00", "tit": [], "note": "Ha quedat sense monitor al quadre"}, {"school": "SIL", "group": "TecnoKids", "ages": "1-3 PRIM", "day": "Dimarts", "time": "13:00-14:00", "tit": [], "note": "Ha quedat sense monitor al quadre"}], "noq": [{"school": "BSB MARESME", "group": "SuperTecno", "ages": "Y6", "n": 10, "need": 1}, {"school": "HASTINGS HABANA", "group": "Mini Tecno", "ages": "Reception", "n": 5, "need": 1}, {"school": "MINGUELLA", "group": "MiniTecno", "ages": "EI3 - EI5", "n": 5, "need": 1}, {"school": "MINGUELLA", "group": "TecnoKids", "ages": "1 - 4 PRIM", "n": 5, "need": 1}, {"school": "SAGRADOS CORAZONES", "group": "MiniTecno", "ages": "EI4 - EI5", "n": 2, "need": 1}, {"school": "ST MARIA LA BLANCA", "group": "MiniTecno", "ages": "1 - 2 PRIM", "n": 13, "need": 2}, {"school": "ST MARIA LA BLANCA", "group": "SuperTecno / Virtual Riders", "ages": "5 - 6 PRIM", "n": 19, "need": 2}, {"school": "ST MARIA LA BLANCA", "group": "TecnoKids", "ages": "3 - 4 PRIM", "n": 13, "need": 2}], "excess": [{"school": "BSB CAST", "group": "TecnoKids", "ages": "Y 2-4", "day": "Dimecres", "time": "16:15-17:45", "n": 10, "need": 1, "have": 4, "tit": ["Ana", "Julia", "Isabel", "Mireia M"], "diff": 3}, {"school": "BSB CAST", "group": "SuperCoders", "ages": "Y 5-8", "day": "Dilluns", "time": "16:30-18:00", "n": 8, "need": 1, "have": 4, "tit": ["Julia", "Ana", "Isabel", "Mireia M"], "diff": 3}, {"school": "MARISTES IMMACULADA", "group": "SuperCoders", "ages": "3-6 PRIM", "day": "Divendres", "time": "13:00-14:00", "n": 9, "need": 1, "have": 3, "tit": ["Gilda", "Alicia", "Adriana"], "diff": 2}, {"school": "BCG", "group": "MiniTecno", "ages": "R+Y 1", "day": "Dimarts", "time": "16:30-17:30", "n": 5, "need": 1, "have": 2, "tit": ["Julia", "Mireia M"], "diff": 1}, {"school": "BON SALVADOR", "group": "SuperCoders", "ages": "4-6 PRIM", "day": "Divendres", "time": "13:30-15:00", "n": 22, "need": 2, "have": 3, "tit": ["Alejandro", "Anna", "Ruth"], "diff": 1}, {"school": "BSB BCN", "group": "SuperCoders", "ages": "Y 5-6", "day": "Dimarts", "time": "16:00-17:30", "n": 12, "need": 1, "have": 2, "tit": ["Jacobo", "Ruth"], "diff": 1}, {"school": "DECROLY", "group": "MiniTecno", "ages": "EI4-EI5", "day": "Dimarts", "time": "14:00-15:00", "n": 3, "need": 1, "have": 2, "tit": ["Xènia", "Martí M"], "diff": 1}, {"school": "EISB", "group": "SuperTecno", "ages": "3-6 PRIM", "day": "Dijous", "time": "13:30-14:30", "n": 12, "need": 1, "have": 2, "tit": ["Marc", "Elena T"], "diff": 1}, {"school": "MAR BELLA", "group": "SuperCoders", "ages": "5-6 PRIM", "day": "Dilluns", "time": "12:30-14:00", "n": 9, "need": 1, "have": 2, "tit": ["Gilda", "Adriana"], "diff": 1}, {"school": "MONTSENY", "group": "SuperCoders", "ages": "3-4 PRIM", "day": "Dilluns", "time": "14:00-15:00", "n": 12, "need": 1, "have": 2, "tit": ["Alejandro", "Martí M"], "diff": 1}, {"school": "MONTSERRAT", "group": "Virtual Riders", "ages": "3-4 PRIM", "day": "Dimarts", "time": "14:00-15:00", "n": 5, "need": 1, "have": 2, "tit": ["Marc", "Elena T"], "diff": 1}, {"school": "MONTSERRAT", "group": "SuperTecno", "ages": "3-4 PRIM", "day": "Dimecres", "time": "14:00-15:00", "n": 12, "need": 1, "have": 2, "tit": ["Marta", "Clara"], "diff": 1}, {"school": "MONTSERRAT", "group": "SuperTecno", "ages": "5-6 PRIM", "day": "Dimecres", "time": "13:00-14:00", "n": 7, "need": 1, "have": 2, "tit": ["Marta", "Clara"], "diff": 1}, {"school": "SANTA TERESA LISIEUX", "group": "TecnoKids", "ages": "1-3 PRIM", "day": "Dilluns", "time": "17:15-18:30", "n": 12, "need": 1, "have": 2, "tit": ["Naia", "Laura Pardo"], "diff": 1}, {"school": "SOLC", "group": "SuperCoders", "ages": "3-6 PRIM", "day": "Dimarts", "time": "13:30-14:30", "n": 11, "need": 1, "have": 2, "tit": ["Alejandro", "Ruth"], "diff": 1}, {"school": "THAU", "group": "Coding", "ages": "4-6 PRIM", "day": "Dimecres", "time": "16:45-18:00", "n": 9, "need": 1, "have": 2, "tit": ["Alejandro", "Anna"], "diff": 1}], "nocsv": [{"school": "BSB CAST", "group": "MiniTecno", "day": "Dijous", "tit": ["Isabel", "Mariona"]}, {"school": "BSB CAST", "group": "Música", "day": "Dimarts", "tit": ["Assumpta", "Ana", "Isabel"]}, {"school": "BSB CAST", "group": "Música", "day": "Dijous", "tit": ["Assumpta", "Ana"]}, {"school": "BSB MARESME", "group": "Mini Tecno", "day": "Dimarts", "tit": ["Marc"]}, {"school": "BSB MARESME", "group": "TecnoKids", "day": "Dijous", "tit": ["Marc"]}, {"school": "CORAZONISTAS", "group": "TecnoKids", "day": "Divendres", "tit": ["Naia", "Laura Pujol"]}, {"school": "EP VILANOVA", "group": "MiniTecno", "day": "Divendres", "tit": ["Cristina", "Mariona"]}, {"school": "EP VILANOVA", "group": "TecnoKids", "day": "Divendres", "tit": ["Cristina", "Mariona"]}, {"school": "EP VILANOVA", "group": "SuperCoders Minecraft", "day": "Dimecres", "tit": ["Cristina"]}, {"school": "LLEO XIII", "group": "MiniTecno", "day": "Dijous", "tit": ["Gilda"]}, {"school": "LLEO XIII", "group": "Tecno Kids", "day": "Dijous", "tit": []}, {"school": "MARISTES BADALONA", "group": "MiniTecno", "day": "Dilluns", "tit": ["Mireia"]}, {"school": "OAK HOUSE", "group": "MiniTecno", "day": "Dijous", "tit": ["Laura Pujol", "Ruth"]}, {"school": "OAK HOUSE", "group": "TecnoKids", "day": "Dijous", "tit": ["Alejandro"]}, {"school": "PUREZA DE MARIA", "group": "SuperCoders", "day": "Dimecres", "tit": ["Alejandro", "Naia"]}, {"school": "SIL", "group": "MiniTecno", "day": "Dimarts", "tit": []}, {"school": "SIL", "group": "TecnoKids", "day": "Dimarts", "tit": []}]};
+const hm=h=>{const m=Math.round(h*60);return m%60?`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`:`${m/60}`};
+const dec=h=>(Math.round(h*10)/10).toLocaleString('ca-ES');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEEP=new Set(['BSB','EP','IE','IPSE','EISB','SOLC','BCG','SIL','XIII','ST','ST.','FEDAC','ESO','PRIM']);
+const LOW=new Set(['de','la','del','i']);
+const cap=s=>s.split(/(\s+)/).map((w,i)=>{if(/^\s+$/.test(w))return w;if(KEEP.has(w))return w;const l=w.toLowerCase();if(i>0&&LOW.has(l))return l;
+  if(/^d['’]/.test(l))return "d'"+l.slice(2,3).toUpperCase()+l.slice(3);return l.charAt(0).toUpperCase()+l.slice(1)}).join('').replace('Lleo','Lleó');
+const K=D.kpi;
+const rows=[
+ ['Hores de classe a la setmana',K.h0,K.h1,dec],
+ ['Monitors titulars',K.t0,K.t1,v=>v],
+ ['Hores fetes pels monitors',K.mh0,K.mh1,dec],
+ ['Mitjana per monitor',K.mh0/K.t0,K.mh1/K.t1,dec],
+ ['Escoles',K.sch0,K.sch1,v=>v],
+ ['Grups',K.grp0,K.grp1,v=>v]];
+document.getElementById('cmp').innerHTML=rows.map(([l,a,b,f])=>{
+  let d=b-a; if(Math.abs(d)<0.05) d=0; const cls=d>0?'up':(d<0?'dn':'');
+  const ds=f===hm?(d<0?'−'+hm(-d):'+'+hm(d)):(d>0?'+':d<0?'−':'')+(f===dec?dec(Math.abs(d)):Math.abs(Math.round(d*10)/10));
+  const dsx=d===0?'igual':ds; return `<div><span class="l">${l}</span><span class="v">${f(b)}${f===dec?' h':(f===hm?' h':'')}</span><br><span class="p">abans ${f(a)} · <b class="${cls}">${dsx}</b></span></div>`}).join('');
+// week
+const mx=Math.max(...D.days.flatMap(d=>[d.h0,d.h1]));
+const wk=document.getElementById('week');
+wk.innerHTML=D.days.map(d=>`<div class="day"><div class="bars"><div class="bar" style="background:var(--past);height:0" data-h="${d.h0/mx*100}"><span>${dec(d.h0)}</span></div><div class="bar" style="background:var(--now);height:0" data-h="${d.h1/mx*100}"><span>${dec(d.h1)}</span></div></div><div class="dl">${d.d}</div></div>`).join('');
+requestAnimationFrame(()=>setTimeout(()=>wk.querySelectorAll('.bar').forEach(b=>b.style.height=b.dataset.h*0.86+'%'),60));
+// team
+const T=D.team, sup=new Set(T.sup);
+const chip=(n,c='')=>`<span class="chip ${c}">${esc(n)}</span>`;
+document.getElementById('team').innerHTML=
+ `<div class="tcol"><h3><b>${T.cont.length}</b>continuen</h3><div class="chips">${T.cont.map(n=>chip(n+(sup.has(n)?' (suport)':''))).join('')}</div></div>`+
+ `<div class="tcol"><h3><b>${T.gone.length}</b>han marxat</h3><div class="chips">${T.gone.map(n=>chip(n,'gone')).join('')}</div></div>`+
+ `<div class="tcol"><h3><b>${T.new.length}</b>són nous</h3><div class="chips">${T.new.map(n=>chip(n+(sup.has(n)?' (suport)':''),'new')).join('')}</div></div>`;
+// monitors
+let Y=1,SORT='h';
+const DAYS=['Dilluns','Dimarts','Dimecres','Dijous','Divendres'],AB=['Dl','Dt','Dc','Dj','Dv'];
+function drawM(){
+  const L=[...(Y?D.mon1:D.mon0)].sort(SORT==='h'?(a,b)=>(b.h+b.sh)-(a.h+a.sh)||a.name.localeCompare(b.name):(a,b)=>a.name.localeCompare(b.name,'ca'));
+  const max=Math.max(...D.mon0.concat(D.mon1).map(x=>x.h+x.sh));
+  const tit=L.filter(x=>x.n>0), avg=tit.reduce((s,x)=>s+x.h,0)/tit.length, low=tit.filter(x=>x.h<5).length;
+  document.getElementById('msum').textContent=`${tit.length} titulars · mitjana ${hm(avg)} h · ${low} amb menys de 5 h`;
+  const col=Y?'var(--now)':'var(--past)';
+  document.getElementById('mlist').innerHTML=L.map((x,i)=>{
+    const isSub=x.n===0, isLow=!isSub&&x.h<5;
+    return `<button class="mrow" aria-expanded="false" aria-controls="md${i}"><span class="mname">${esc(x.name)}</span>
+    <span class="mtrack"><span class="mfill" style="width:${x.h/max*100}%;background:${col}"></span><span class="msup" style="left:${x.h/max*100}%;width:${x.sh/max*100}%;background:${col}"></span></span>
+    <span class="mval">${hm(x.h+x.sh)} h</span></button>
+    <div class="mdet" id="md${i}">${isSub?'<span class="tag sub">només suport</span>':''}${isLow?'<span class="tag low">pot fer més hores</span>':''}
+    <div class="wk">${DAYS.map((d,j)=>`<i class="${x.days[d]?'on':''}" title="${d}">${AB[j]}${x.days[d]?' '+hm(x.days[d]):''}</i>`).join('')}</div>
+    ${x.n} sessions com a titular${x.sh?` · ${hm(x.sh)} h de suport`:''} · ${x.schools.map(cap).map(esc).join(', ')}</div>`}).join('');
+}
+document.getElementById('mlist').addEventListener('click',e=>{const b=e.target.closest('.mrow');if(!b)return;b.setAttribute('aria-expanded',b.getAttribute('aria-expanded')==='true'?'false':'true')});
+document.querySelectorAll('[data-y]').forEach(b=>b.onclick=()=>{Y=+b.dataset.y;document.querySelectorAll('[data-y]').forEach(o=>o.setAttribute('aria-pressed',o===b));drawM()});
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{SORT=b.dataset.s;document.querySelectorAll('[data-s]').forEach(o=>o.setAttribute('aria-pressed',o===b));drawM()});
+drawM();
+// missing
+const missN=D.need.reduce((s,x)=>s-x.diff,0)+D.need_extra.reduce((s,x)=>s+(x.miss||1),0);
+const noqN=D.noq.reduce((s,x)=>s+x.need,0), noqA=D.noq.reduce((s,x)=>s+x.n,0);
+document.getElementById('bigmiss').innerHTML=`<div class="miss"><b>${missN}</b><span>monitors que falten en ${D.need.length+D.need_extra.length} sessions del quadre</span></div><div class="miss"><b>${noqN}</b><span>monitors per a ${D.noq.length} grups (${noqA} alumnes) que encara no són al quadre</span></div>`;
+const dots=(have,need)=>{let s='';for(let i=0;i<Math.max(have,need);i++)s+=`<i class="dot ${i<have?(i<need?'f':'x'):'e'}"></i>`;return `<div class="dots" aria-label="${have} monitors de ${need} necessaris">${s}</div>`};
+document.getElementById('miss').innerHTML=D.need.map(x=>`<div class="card m"><h4>${esc(cap(x.school))}</h4><div class="g">${esc(x.group)} · ${esc(x.ages)} · ${x.day.toLowerCase()} ${x.time}</div>${dots(x.have,x.need)}<p><b>${x.n} alumnes</b> → ${x.note?'cal '+x.need+' monitor. '+esc(x.note):`calen ${x.need}, n’hi ha ${x.have}${x.tit.length?' ('+x.tit.map(esc).join(', ')+')':''}${x.sup.length?'. De suport: '+x.sup.map(esc).join(', '):''}.`}</p></div>`).join('')+
+ D.need_extra.map(x=>`<div class="card m"><h4>${esc(cap(x.school))}</h4><div class="g">${esc(x.group)} · ${esc(x.ages)} · ${x.day.toLowerCase()} ${x.time}</div><p>${esc(x.note)}.${x.tit.length?' Hi ha: '+x.tit.map(esc).join(', ')+'.':''} Aquest grup no surt al fitxer d’alumnes.</p></div>`).join('');
+document.getElementById('noq').innerHTML='<thead><tr><th>Escola</th><th>Grup</th><th>Edats</th><th style="text-align:right">Alumnes</th><th style="text-align:right">Monitors</th></tr></thead><tbody>'+
+ D.noq.map(x=>`<tr><td>${esc(cap(x.school))}</td><td>${esc(x.group)}</td><td>${esc(x.ages)}</td><td class="n">${x.n}</td><td class="n">${x.need}</td></tr>`).join('')+'</tbody>';
+// over
+const ovN=D.excess.reduce((s,x)=>s+x.diff,0);
+document.getElementById('bigover').innerHTML=`<div class="over"><b>${ovN}</b><span>monitors per sobre de la ratio</span></div><div class="over"><b>${D.excess.length}</b><span>sessions afectades</span></div>`;
+document.getElementById('over').innerHTML=D.excess.map(x=>`<div class="card o"><h4>${esc(cap(x.school))}</h4><div class="g">${esc(x.group)} · ${x.day.toLowerCase()} ${x.time}</div>${dots(x.have,x.need)}<p><b>${x.n} alumnes</b> → en calen ${x.need}, n’hi ha ${x.have}: ${x.tit.map(esc).join(', ')}.</p></div>`).join('');
+document.getElementById('nocsvtxt').textContent=`${D.nocsv.length} sessions surten al quadre però no tenen alumnes al fitxer. Si no s’hi fa classe, els monitors que hi consten quedarien lliures. SIL i Lleó XIII comencen el 6 i el 8 d’octubre.`;
+document.getElementById('nocsv').innerHTML=D.nocsv.map(x=>chip(`${cap(x.school)} · ${x.group}${x.tit.length?' ('+x.tit.join(', ')+')':''}`)).join('');
+</script>
+</body></html>
